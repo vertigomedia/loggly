@@ -1,7 +1,7 @@
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveGeneric             #-}
 {-# LANGUAGE ExistentialQuantification #-}
-{-# LANGUAGE RecordWildCards #-}
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards           #-}
+{-# LANGUAGE OverloadedStrings         #-}
 ------------------------------------------------------------------------------
 -- |
 -- Module      : Web.Loggly
@@ -11,15 +11,29 @@
 -- Portability : POSIX
 -- 
 ------------------------------------------------------------------------------
-module Web.Loggly where
+module Web.Loggly
+    ( -- * Types
+      LogglyToken   (..)
+    , LogglyConfig  (..)
+    , LogglyRequest (..)
+    , LogglyError   (..)
+      -- * Tags
+    , Tag           (..)
+    , Tags
+    , addTags
+      -- * Method
+    , loggly
+    )
+
+    where
 
 import           Control.Applicative ( (<$>) )
-import           Data.Aeson
-import           Data.Aeson.Parser
-import           Data.List
-import           Data.Monoid
+import           Data.Aeson  
+import           Data.Aeson.Parser   ( json )
+import           Data.List           ( intercalate )
+import           Data.Monoid         ( mconcat )
 import           Data.Text (Text)
-import qualified Data.Text as T
+import qualified Data.Text         as T
 import           GHC.Generics
 import           Network.HTTP.Types
 import           System.IO.Streams (InputStream, OutputStream)
